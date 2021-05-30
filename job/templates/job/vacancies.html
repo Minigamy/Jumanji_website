@@ -1,0 +1,33 @@
+{% extends 'job/base.html' %}
+
+{% block content %}
+
+<main class="container mt-3">
+  <section>
+    <h1 class="h1 text-center mx-auto mt-4 pt-5" style="font-size: 70px;"><strong>Поиск вакансий</strong></h1>
+    <p class="text-center pt-1">{{ count }} вакансий</p>
+    <div class="row mt-5">
+      <div class="col-12 col-lg-8 offset-lg-2 m-auto">
+        {% for vacancy in vacancies %}
+        <div class="card mb-4">
+          <div class="card-body px-4">
+            <div class="row">
+              <div class="col-12 col-md-8 col-lg-9">
+                <h2 class="h2 pb-2">{{ vacancy.title }}</h2>
+                <p class="mb-2">{{ vacancy.specialty.title }} • {{ vacancy.skills|join:" • " }}</p>
+                <p>От {{ vacancy.salary_min }} до {{ vacancy.salary_max }} руб.</p>
+                <p class="text-muted pt-1">{{ vacancy.published_at|date:"d E" }}</p>
+              </div>
+              <div class="col-12 col-md-4 col-lg-3 d-flex align-items-end">
+                <a href="{% url 'vacancy' vacancy.id %}"><img src="{{ vacancy.specialty.picture }}" width="130" height="80" alt=""></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}
