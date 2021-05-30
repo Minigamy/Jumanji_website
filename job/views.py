@@ -1,5 +1,6 @@
 from django.db.models import Count
 from django.shortcuts import render
+from django.http import HttpResponseNotFound, HttpResponseServerError
 from django.views import View
 
 from job.models import Vacancy, Company
@@ -63,3 +64,11 @@ class VacancyView(View):
             'vacancy': vacancy,
         }
         return render(request, 'job/vacancy.html', context)
+
+
+def custom_handler404(request, exception):
+    return HttpResponseNotFound('404 Страница не найдена!')
+
+
+def custom_handler500(request):
+    return HttpResponseServerError('Ошибка сервера!')
