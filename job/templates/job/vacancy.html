@@ -10,7 +10,7 @@
     </div>
     <div class="col-12 col-lg-8">
       <section class="pl-3">
-        <a href="#"><img src="{{ vacancy.specialty.picture }}" width="130" height="80" alt=""></a>
+        <a href="#"><img src="{{ vacancy.company.logo.url }}" alt=""></a>
         <div class="d-flex align-items-baseline align-content-baseline">
           <h1 class="h2 mt-4 font-weight-bold" >{{ vacancy.title }}</h1>
           <p class="m-0 pl-3">{{ vacancy.salary_min }} – {{ vacancy.salary_max }} Р</p>
@@ -20,24 +20,18 @@
         <div style="line-height: 1.8;">
           {{ vacancy.description|safe }}
         </div>
-        <form action="/echo" class="card mt-4 mb-3" enctype="multipart/form-data">
+        {% if form %}
           <div class="card-body mx-3">
             <p class="h5 mt-3 font-weight-normal">Отозваться на вакансию</p>
-            <div class="form-group">
-              <label class="mb-1 mt-2" for="userName">Вас зовут</label>
-              <input class="form-control" type="text" placeholder="" id="userName">
-            </div>
-            <div class="form-group">
-              <label class="mb-1" for="userPhone">Ваш телефон</label>
-              <input class="form-control" type="tel" placeholder="" id="userPhone">
-            </div>
-            <div class="form-group">
-              <label class="mb-1" for="userMsg" >Сопроводительное письмо</label>
-              <textarea class="form-control" rows="8" id="userMsg"></textarea>
-            </div>
-            <input type="submit" class="btn btn-primary mt-4 mb-2" value="Записаться на пробный урок">
+            <a name="application"></a>
+            {% load crispy_forms_tags %}
+            {% csrf_token %}
+            {% crispy form form.helper %}
           </div>
-        </form>
+        {% else %}
+          <p class="alert alert-info" role="alert">Чтобы отозваться на вакансию, <a href="/login/?Y=/vacancies/{{ vacancy.id }}/#application">авторизируйтесь.</a></p>
+        {% endif %}
+
       </section>
     </div>
   </div>
