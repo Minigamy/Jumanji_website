@@ -18,7 +18,7 @@
         </button>
         <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
             <ul class="navbar-nav col-10">
-                <li class="nav-item">
+                <li class="nav-item {% if request.path == '/vacancies/' %}active{% endif %}">
                     <a class="nav-link" href="{% url 'all_vacancies' %}">Вакансии</a>
                 </li>
 
@@ -32,8 +32,8 @@
                         </button>
                         <div class="dropdown-menu dropdown-menu-right mt-3">
                             <a href="#" class="dropdown-item py-2">Резюме</a>
-                            <a href="#" class="dropdown-item py-2">Компания</a>
-                            <a href="/logout/" class="dropdown-item py-2">Выйти</a>
+                            <a href="{% url 'my_company' %}" class="dropdown-item py-2">Компания</a>
+                            <a href="{% url 'logout' %}" class="dropdown-item py-2">Выйти</a>
                         </div>
                     </div>
                     {% else %}

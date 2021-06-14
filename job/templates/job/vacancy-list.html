@@ -1,0 +1,49 @@
+{% extends 'job/base.html' %}
+{% block content %}
+<style>
+  body {
+    background-color: #F6F2E6;
+  }
+</style>
+<main class="container mt-3 pb-5">
+  <div class="row mt-5">
+    {% include 'job/MyCompany_sidebar_menu.html' %}
+    <div class="col-12 col-lg-8">
+      <div class="card">
+        <div class="card-body px-4 pb-4">
+          <section class="tab-pane fade show active">
+            <h2 class="h4 pt-2 pb-3">Вакансии</h2>
+            {% if not vacancies %}
+            <h5>У вас пока нет вакансий</h5>
+            {% endif %}
+            <!-- vacancy state 1 -->
+            {% for vacancy in vacancies %}
+            <div class="card mt-3">
+              <div class="card-body px-4">
+                <div class="row align-items-center">
+                  <div class="col-6 col-lg-8">
+                    <a href="/vacancies/{{ vacancy.id }}/" class="mb-1">{{ vacancy.title }}</a>
+                    <p class="mb-1">
+                      <span class="mr-4">{{ vacancy.salary_min }} - {{ vacancy.salary_max }}</span>
+                      {% if vacancy.applications_count %}
+                      <a href="/mycompany/vacancies/{{ vacancy.id }}#applications" class="text-info">{{ vacancy.applications_count }} откликов</a>
+                      {% else %}
+                      <span class="text-muted">Нет откликов</span>
+                      {% endif %}
+                    </p>
+                  </div>
+                  <div class="col-6 col-lg-4 text-right">
+                    <a href="/mycompany/vacancies/{{ vacancy.id }}/" class="btn btn-outline-info">Изменить</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </section>
+          <a href="{% url 'vacancy_create' %}" class="btn btn-primary mt-4 mb-2">Добавить вакансию</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

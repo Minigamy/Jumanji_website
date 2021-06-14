@@ -3,7 +3,7 @@ from crispy_forms.layout import Submit, Layout, Row, Column
 from django import forms
 from django.contrib.auth.models import User
 
-from job.models import Application
+from job.models import Application, Company, Vacancy
 
 
 class LogInForm(forms.ModelForm):
@@ -85,3 +85,60 @@ class ApplicationForm(forms.ModelForm):
             ),
         )
 
+
+class EditCompanyForm(forms.ModelForm):
+    class Meta:
+        model = Company
+        fields = ['name', 'location', 'logo', 'description', 'employee_count']
+        labels = {
+            'name': 'Название компании',
+            'location': 'География',
+            'logo': 'Логотип',
+            'description': 'Информация о компании',
+            'employee_count': 'Количество человек в компании',
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.label_class = 'mb-2 text-dark'
+        self.helper.add_input(Submit('submit', 'Сохранить', css_class='btn btn-info'))
+        self.helper.layout = Layout(
+            Row(
+                Column('name'), Column('logo'),
+            ),
+            Row(
+                Column('employee_count'), Column('location'),
+            ),
+            Row(
+                Column('description'),
+            ),
+        )
+
+
+class EditVacancyForm(forms.ModelForm):
+    class Meta:
+        model = Vacancy
+        fields = ['title', 'specialty', 'skills', 'description', 'salary_min', 'salary_max']
+        labels = {
+            'title': 'Название вакансии',
+            'specialty': 'Специализация',
+            'salary_min': 'Зарпалата от',
+            'salary_max': 'Зарплата до',
+            'skills': 'Требуемые навыки',
+            'description': 'Описание вакансии',
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.label_class = 'mb-2 text-dark'
+        self.helper.add_input(Submit('submit', 'Сохранить', css_class='btn btn-info'))
+        self.helper.layout = Layout(
+            Row(Column('title'), Column('specialty')),
+            Row(Column('salary_min'), Column('salary_max')),
+            Row(Column('skills')),
+            Row(Column('description')),
+        )

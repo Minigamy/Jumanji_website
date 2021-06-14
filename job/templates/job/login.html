@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <title>Джуманджи</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+  <main class="container">
+    <div class="row">
+      <div class="col-8 col-lg-4 offset-2 offset-lg-4">
+          <div class="text-center mt-5 b-1">
+            <h1 class="h3 mb-3 font-weight-normal">Джуманджи</h1>
+            <p class="h5 font-weight-light">Войдите, чтобы управлять</p>
+          </div>
+        {% load crispy_forms_tags %}
+        {% csrf_token %}
+        {% crispy form form.helper %}
+        {% if messages %}
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        {% endif %}
+
+
+        <div class="mt-4 text-center"><p>Нет аккаунта? <a href="/register">Зарегистрируйтесь!</a></p></div>
+
+      </div>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,10 +1,9 @@
-from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.http import HttpResponseNotFound, HttpResponseServerError, Http404
 from django.views import View
 
 from job.forms import ApplicationForm
-from job.models import Vacancy, Company, Specialty, Application
+from job.models import Vacancy, Company, Specialty
 
 
 class MainView(View):
@@ -78,26 +77,13 @@ class VacancyView(View):
         return render(request, 'job/vacancy.html', context)
 
     def post(self, request, vacancies_id):
-        # form = ApplicationForm(request.POST)
-        # if form.is_valid():
-        #     application = form.save(commit=False)
-        #     application.vacancy = Vacancy.objects.get(id=vacancies_id)
-        #     application.user_id = request.user.id
-        #     print(application.user_id)
-        #     application.save()
-        #     return render(request, 'job/sent.html', {'vacancy_id': vacancies_id})
         form = ApplicationForm(request.POST)
-        vacancy = Vacancy.objects.get(id=vacancies_id)
         if form.is_valid():
-            form_data = form.cleaned_data
-            Application.objects.create(
-                written_username=form_data['written_username'],
-                written_phone=form_data['written_phone'],
-                written_cover_letter=form_data['written_cover_letter'],
-                vacancy=vacancy,
-                user=User.objects.get(username=request.user)
-            )
-        return redirect('send', vacancies_id)
+            application = form.save(commit=False)
+            application.vacancy = Vacancy.objects.get(id=vacancies_id)
+            application.user_id = request.user.id
+            application.save()
+            return render(request, 'job/sent.html', {'vacancy_id': vacancies_id})
 
 
 class SentView(View):
@@ -105,21 +91,6 @@ class SentView(View):
         return render(request, 'job/sent.html', context={
             'vacancy_id': vacancy_id,
         })
-
-
-class MyCompanyView(View):
-    def get(self, request):
-        return render(request, 'job/company-edit.html', )
-
-
-class MyCompanyVacanciesView(View):
-    def get(self, request):
-        return render(request, 'job/vacancy-list.html', )
-
-
-class MyCompanySingleVacancyView(View):
-    def get(self, request, vacancy_id):
-        return render(request, 'job/vacancy-edit.html')
 
 
 def custom_handler404(request, exception):

@@ -1,0 +1,45 @@
+{% extends 'job/base.html' %}
+{% block content %}
+<style>
+    body {
+      background-color: #F6F2E6;
+    }
+  </style>
+  <main class="container mt-3 pb-5">
+    <div class="row mt-5">
+      {% include 'job/MyCompany_sidebar_menu.html' %}
+      <div class="col-12 col-lg-8">
+        <div class="card">
+          <div class="card-body px-4 pb-4 tab-content">
+            <!-- Tab -->
+            <section>
+              <h2 class="h4 pt-2 pb-3">Backend Middle/Senior</h2>
+              {% if messages %}
+                {% for message in messages %}
+                  <p class="alert alert-info" role="alert">{{ message }}</p>
+                {% endfor %}
+              {% endif %}
+              {% load crispy_forms_tags %}
+              {% csrf_token %}
+              {% crispy form form.helper %}
+              <a name="applications"></a>
+              {% if applications %}
+                <h2 class="h4 pt-2 pb-3">Отклики - {{ applications|length }}</h2>
+                  {% for application in applications %}
+              <div class="card mt-3">
+                <div class="card-body px-4">
+                  <p class="mb-1 font-weight-bold">{{ application.written_username }}</p>
+                  <p class="mb-2"><a href="tel:{{ application.written_phone }}" class="text-dark">{{ application.written_phone }}</a></p>
+                  <p class="mb-1">{{ application.written_cover_letter }}</p>
+                </div>
+              </div>
+                  {% endfor %}
+              {% endif %}
+            </section>
+            <!-- END Tab -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock %}

@@ -3,9 +3,10 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from job.views.public import MyCompanySingleVacancyView, MyCompanyVacanciesView, MyCompanyView, MainView, \
-    VacanciesListView, SpecializationView, CompanyCardView, VacancyView, custom_handler404, \
-    custom_handler500, SentView
+from job.views.account import MyCompanyView, MyCompanyCreateView, MyCompanyVacancyCreate, MyCompanyVacanciesView, \
+    MyCompanyVacancyView
+from job.views.public import MainView, VacanciesListView, SpecializationView, CompanyCardView, VacancyView, \
+    custom_handler404, custom_handler500, SentView
 from job.views.authorization.authorization import RegisterView, LogInView, LogOutView
 
 urlpatterns = [
@@ -19,15 +20,14 @@ urlpatterns = [
 
     path('companies/<int:company_id>/', CompanyCardView.as_view(), name='company'),
 
-    # path('mycompany/letsstart/', ),
-    # path('mycompany/create/', ),
-    path('mycompany/', MyCompanyView.as_view(), ),
-    path('mycompany/vacancies/', MyCompanyVacanciesView.as_view(), ),
-    # path('mycompany/vacancies/create/', ),
-    path('mycompany/vacancies/<vacancy_id>', MyCompanySingleVacancyView.as_view(), ),
-    #
+    path('mycompany/create/', MyCompanyCreateView.as_view(), name='my_company_create'),
+    path('mycompany/', MyCompanyView.as_view(), name='my_company'),
+    path('mycompany/vacancies/', MyCompanyVacanciesView.as_view(), name='vacancy_edit'),
+    path('mycompany/vacancies/create/', MyCompanyVacancyCreate.as_view(), name='vacancy_create'),
+    path('mycompany/vacancies/<int:vacancy_id>/', MyCompanyVacancyView.as_view(), name='single_vacancy'),
+
     path('login/', LogInView.as_view(), name='login'),
-    path('logout/', LogOutView.as_view()),
+    path('logout/', LogOutView.as_view(), name='logout'),
     path('register/', RegisterView.as_view(), name='register'),
 
 ]

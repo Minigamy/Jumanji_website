@@ -3,9 +3,9 @@ from django.contrib.auth.models import User
 
 from conf.settings import MEDIA_COMPANY_IMAGE_DIR, MEDIA_SPECIALITY_IMAGE_DIR
 
-
-class User(User):
-    pass
+#
+# class User(User):
+#     pass
 
 
 class Company(models.Model):
@@ -46,4 +46,3 @@ class Application(models.Model):
     written_cover_letter = models.TextField()
     vacancy = models.ForeignKey(Vacancy, related_name='applications', on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name='applications', on_delete=models.CASCADE)
-
