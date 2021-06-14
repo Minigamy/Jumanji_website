@@ -1,2 +1,5 @@
 # stepik-week3-new
-New start
+
+SUPERUSER
+login: adminadmin
+pass: admin
