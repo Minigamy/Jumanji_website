@@ -9,8 +9,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views import View
 
-from job.forms import EditCompanyForm, EditVacancyForm
-from job.models import Company, Vacancy, Application
+from job.forms import EditCompanyForm, EditVacancyForm, EditResumeForm
+from job.models import Company, Vacancy, Application, Resume
 
 
 @method_decorator(login_required, name='dispatch')
@@ -64,7 +64,6 @@ class MyCompanyVacanciesView(View):
         vacancies = Vacancy.objects.filter(company_id=request.user.company.id) \
             .values('id', 'title', 'salary_min', 'salary_max') \
             .annotate(applications_count=Count('applications'))
-        print(vacancies)
         context = {
             'vacancies': vacancies
         }
@@ -106,7 +105,6 @@ class MyCompanyVacancyCreate(View):
     def post(self, request):
         form = EditVacancyForm(request.POST)
         if form.is_valid():
-            print('form is valid')
             vacancy = form.save(commit=False)
             vacancy.company = Company.objects.get(id=request.user.company.id)
             vacancy.published_at = datetime.date.today()
@@ -114,3 +112,46 @@ class MyCompanyVacancyCreate(View):
             messages.add_message(request, messages.INFO, 'Вакансия добавлена')
             return redirect('vacancy_edit')
         return render(request, 'job/vacancy-edit.html', {'form': form})
+
+
+@method_decorator(login_required, name='dispatch')
+class ResumeView(View):
+    def get(self, request):
+        if not Resume.objects.filter(user__id=request.user.id).exists():
+            return render(request, 'job/resume-create.html')
+        resume = Resume.objects.get(user__id=request.user.id)
+        context = {
+            'form': EditResumeForm(instance=resume),
+        }
+        return render(request, 'job/resume-edit.html', context)
+
+    def post(self, request):
+        resume = Resume.objects.get(user__id=request.user.id)
+        form = EditResumeForm(request.POST, instance=resume)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.INFO, 'Резюме обновлено')
+            return redirect('resume')
+        return render(request, 'job/resume-edit.html', {'form': form})
+
+
+@method_decorator(login_required, name='dispatch')
+class ResumeCreateView(View):
+    def get(self, request):
+        if Resume.objects.filter(user__id=request.user.id).exists():
+            return redirect('resume')
+        context = {
+            'form': EditResumeForm,
+        }
+        messages.add_message(request, messages.INFO, 'Создание нового резюме')
+        return render(request, 'job/resume-edit.html', context)
+
+    def post(self, request):
+        form = EditResumeForm(request.POST)
+        if form.is_valid():
+            resume = form.save(commit=False)
+            resume.user = User.objects.get(id=request.user.id)
+            resume.save()
+            messages.add_message(request, messages.INFO, 'Резюме создано')
+            return redirect('resume')
+        return render(request, 'job/resume-edit.html', {'form': form})

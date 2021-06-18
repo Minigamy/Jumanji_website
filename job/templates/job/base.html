@@ -31,7 +31,8 @@
                             {{ user.first_name }} {{ user.last_name }}
                         </button>
                         <div class="dropdown-menu dropdown-menu-right mt-3">
-                            <a href="#" class="dropdown-item py-2">Резюме</a>
+                            <p class="dropdown-item py-6">Логин: {{ user.username }}</p>
+                            <a href="{% url 'resume' %}" class="dropdown-item py-2">Резюме</a>
                             <a href="{% url 'my_company' %}" class="dropdown-item py-2">Компания</a>
                             <a href="{% url 'logout' %}" class="dropdown-item py-2">Выйти</a>
                         </div>

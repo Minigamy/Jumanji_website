@@ -4,7 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from job.views.account import MyCompanyView, MyCompanyCreateView, MyCompanyVacancyCreate, MyCompanyVacanciesView, \
-    MyCompanyVacancyView
+    MyCompanyVacancyView, ResumeView, ResumeCreateView
 from job.views.public import MainView, VacanciesListView, SpecializationView, CompanyCardView, VacancyView, \
     custom_handler404, custom_handler500, SentView
 from job.views.authorization.authorization import RegisterView, LogInView, LogOutView
@@ -29,6 +29,10 @@ urlpatterns = [
     path('login/', LogInView.as_view(), name='login'),
     path('logout/', LogOutView.as_view(), name='logout'),
     path('register/', RegisterView.as_view(), name='register'),
+
+    # path('search/'),
+    path('myresume/create/', ResumeCreateView.as_view(), name='create_resume'),
+    path('myresume/', ResumeView.as_view(), name='resume'),
 
 ]
 
