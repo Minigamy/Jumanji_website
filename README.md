@@ -1,5 +1,5 @@
-# stepik-week3-new
+# Jumanji_website
 
-SUPERUSER
-login: adminadmin
-pass: admin
+##SUPERUSER
+###login: adminadmin
+###pass: admin

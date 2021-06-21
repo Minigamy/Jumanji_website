@@ -1,9 +1,10 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Row, Column
+
 from django import forms
 from django.contrib.auth.models import User
 
-from job.models import Application, Company, Vacancy
+from job.models import Application, Company, Vacancy, Resume
 
 
 class LogInForm(forms.ModelForm):
@@ -72,7 +73,7 @@ class ApplicationForm(forms.ModelForm):
 
         self.helper.form_method = 'post'
         self.helper.label_class = 'mb-1'
-        self.helper.add_input(Submit('submit', 'Записаться на пробный урок', css_class='btn btn-primary mt-4 mb-2'))
+        self.helper.add_input(Submit('submit', 'Откликнуться', css_class='btn btn-primary mt-4 mb-2'))
         self.helper.layout = Layout(
             Row(
                 Column('written_username'),
@@ -141,4 +142,36 @@ class EditVacancyForm(forms.ModelForm):
             Row(Column('salary_min'), Column('salary_max')),
             Row(Column('skills')),
             Row(Column('description')),
+        )
+
+
+class EditResumeForm(forms.ModelForm):
+    class Meta:
+        model = Resume
+        fields = ['name', 'surname', 'status', 'salary', 'specialty', 'grade', 'education', 'experience', 'portfolio']
+        labels = {
+            'name': 'Имя',
+            'surname': 'Фамилия',
+            'status': 'Готовность к работе',
+            'salary': 'Ожидаемое вознаграждение',
+            'specialty': 'Специализация',
+            'grade': 'Квалификация',
+            'education': 'Образование',
+            'experience': 'Опыт работы',
+            'portfolio': 'Ссылка на портфолио',
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.label_class = 'mb-2 text-dark'
+        self.helper.add_input(Submit('submit', 'Сохранить', css_class='btn btn-info'))
+        self.helper.layout = Layout(
+            Row(Column('name'), Column('surname')),
+            Row(Column('status'), Column('salary')),
+            Row(Column('specialty'), Column('grade')),
+            Row(Column('education')),
+            Row(Column('experience')),
+            Row(Column('portfolio')),
         )
