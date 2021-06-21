@@ -30,9 +30,9 @@ urlpatterns = [
     path('logout/', LogOutView.as_view(), name='logout'),
     path('register/', RegisterView.as_view(), name='register'),
 
-    # path('search/'),
-    path('myresume/create/', ResumeCreateView.as_view(), name='create_resume'),
     path('myresume/', ResumeView.as_view(), name='resume'),
+    path('myresume/create/', ResumeCreateView.as_view(), name='create_resume'),
+
 
 ]
 

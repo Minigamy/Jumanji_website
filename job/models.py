@@ -56,6 +56,12 @@ class Resume(models.Model):
         ('senior', 'Страший (senior)')
     ]
 
+    # SPEC_CH = [
+    #     ('junior', 'Младший (junior)'),
+    #     ('middle', 'Средний (middle)'),
+    #     ('senior', 'Страший (senior)')
+    # ]
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=64)
     surname = models.CharField(max_length=64)
@@ -66,5 +72,4 @@ class Resume(models.Model):
     education = models.TextField()
     experience = models.TextField()
     portfolio = models.URLField()
-
 

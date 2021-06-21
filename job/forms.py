@@ -1,5 +1,6 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Row, Column
+
 from django import forms
 from django.contrib.auth.models import User
 
@@ -72,7 +73,7 @@ class ApplicationForm(forms.ModelForm):
 
         self.helper.form_method = 'post'
         self.helper.label_class = 'mb-1'
-        self.helper.add_input(Submit('submit', 'Отозваться', css_class='btn btn-primary mt-4 mb-2'))
+        self.helper.add_input(Submit('submit', 'Откликнуться', css_class='btn btn-primary mt-4 mb-2'))
         self.helper.layout = Layout(
             Row(
                 Column('written_username'),

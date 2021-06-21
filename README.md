@@ -1,7 +1,5 @@
 # Jumanji_website
 
-#SUPERUSER
-
+##SUPERUSER
 ###login: adminadmin
-
 ###pass: admin
