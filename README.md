@@ -15,7 +15,7 @@
 
 # Описание 
 
-Данный сайт написал с помощью фреймворка `Django`. Основная тематика сайта - поиск и публикация вакансий.  
+Данный сайт написан с помощью фреймворка `Django`. Основная тематика сайта - поиск и публикация вакансий.  
   
 ![Главная страница](https://github.com/Minigamy/Jumanji_website/blob/master/img/website1.PNG)  
 <p align="center">Рисунок 1. Главное меню</p>  
@@ -26,6 +26,7 @@
 ![Поиск вакансий](https://github.com/Minigamy/Jumanji_website/blob/master/img/website2.PNG)  
 <p align="center">Рисунок 2. Поиск вакансий</p>  
 
+  
 
 
 ![Резюме](https://github.com/Minigamy/Jumanji_website/blob/master/img/website3.PNG)  
