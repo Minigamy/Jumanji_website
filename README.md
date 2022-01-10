@@ -1,5 +1,20 @@
 # Jumanji_website
+Сайт для поиска и публикации вакансий.
 
-##SUPERUSER
-###login: adminadmin
-###pass: admin
+# Порядок запуска
+1. Устанавливаем зависимости из `requirements.txt`
+2. Делаем миграции с помощью команд:  
+   `python manage.py makemigrations`  
+   `python manage.py migrate`
+3. Запускаем сервер в терминале командой `python manage.py runserver`
+4. Открываем `http://127.0.0.1:8000/` в браузере
+
+## SUPERUSER для доступа в личный кабинет
+#### login: adminadmin
+#### pass: admin  
+
+# Описание 
+
+Данный сайт написал с помощью фреймворка `Django`. Основная тематика сайта - поиск и публикация вакансий.  
+  
+![Главная страница]()

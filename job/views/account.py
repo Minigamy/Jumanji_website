@@ -25,6 +25,8 @@ class MyCompanyView(View):
         return render(request, 'job/company-edit.html', context)
 
     def post(self, request):
+        if not Company.objects.filter(owner_id=request.user.id).exists():
+            return render(request, 'job/company-create.html')
         instance = Company.objects.get(owner_id=request.user.id)
         form = EditCompanyForm(request.POST, request.FILES, instance=instance)
         if form.is_valid():
@@ -46,6 +48,8 @@ class MyCompanyCreateView(View):
         return render(request, 'job/company-edit.html', context)
 
     def post(self, request):
+        if not Company.objects.filter(owner_id=request.user.id).exists():
+            return render(request, 'job/company-create.html')
         form = EditCompanyForm(request.POST, request.FILES)
         if form.is_valid():
             company = form.save(commit=False)
@@ -73,6 +77,8 @@ class MyCompanyVacanciesView(View):
 @method_decorator(login_required, name='dispatch')
 class MyCompanyVacancyView(View):
     def get(self, request, vacancy_id):
+        if not Company.objects.filter(owner_id=request.user.id).exists():
+            return render(request, 'job/company-create.html')
         vacancy = get_object_or_404(Vacancy, id=vacancy_id)
         applications = Application.objects.filter(vacancy_id=vacancy_id)
         context = {
@@ -82,6 +88,8 @@ class MyCompanyVacancyView(View):
         return render(request, 'job/vacancy-edit.html', context)
 
     def post(self, request, vacancy_id):
+        if not Company.objects.filter(owner_id=request.user.id).exists():
+            return render(request, 'job/company-create.html')
         instance = Vacancy.objects.get(id=vacancy_id)
         form = EditVacancyForm(request.POST, instance=instance)
         if form.is_valid():
@@ -96,6 +104,8 @@ class MyCompanyVacancyView(View):
 @method_decorator(login_required, name='dispatch')
 class MyCompanyVacancyCreate(View):
     def get(self, request):
+        if not Company.objects.filter(owner_id=request.user.id).exists():
+            return render(request, 'job/company-create.html')
         context = {
             'form': EditVacancyForm,
         }
@@ -103,6 +113,8 @@ class MyCompanyVacancyCreate(View):
         return render(request, 'job/vacancy-edit.html', context)
 
     def post(self, request):
+        if not Company.objects.filter(owner_id=request.user.id).exists():
+            return render(request, 'job/company-create.html')
         form = EditVacancyForm(request.POST)
         if form.is_valid():
             vacancy = form.save(commit=False)

@@ -1,5 +1,7 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import HttpResponseNotFound, HttpResponseServerError, Http404
+from django.utils.decorators import method_decorator
 from django.views import View
 
 from job.forms import ApplicationForm
@@ -76,6 +78,7 @@ class VacancyView(View):
             context['form'] = ApplicationForm
         return render(request, 'job/vacancy.html', context)
 
+    @method_decorator(login_required)
     def post(self, request, vacancies_id):
         form = ApplicationForm(request.POST)
         if form.is_valid():
