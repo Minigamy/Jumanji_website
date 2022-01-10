@@ -20,11 +20,18 @@
 ![Главная страница](https://github.com/Minigamy/Jumanji_website/blob/master/img/website1.PNG)  
 <p align="center">Рисунок 1. Главное меню</p>  
 
+Реализована регистрация пользователей, составление резюме (с редактированием) и возможность отклика на вакансии.  
+
+
 ![Поиск вакансий](https://github.com/Minigamy/Jumanji_website/blob/master/img/website2.PNG)  
 <p align="center">Рисунок 2. Поиск вакансий</p>  
 
+
+
 ![Резюме](https://github.com/Minigamy/Jumanji_website/blob/master/img/website3.PNG)  
 <p align="center">Рисунок 3. Резюме в личном кабинете</p>  
+
+По аналогии с составлением резюме можно создать компанию (с редактированием) и добавить к ней вакансии, на которые может откликнуться любой зарегестрированый пользователь.
 
 ![Информация о компании](https://github.com/Minigamy/Jumanji_website/blob/master/img/website_compinfo.PNG)  
 <p align="center">Рисунок 4. Информация о компании в личном кабинете</p>  
