@@ -9,9 +9,6 @@
 3. Запускаем сервер в терминале командой `python manage.py runserver`
 4. Открываем `http://127.0.0.1:8000/` в браузере
 
-## SUPERUSER для доступа в личный кабинет
-#### login: adminadmin
-#### pass: admin  
 
 # Описание 
 
