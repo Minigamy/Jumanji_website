@@ -34,7 +34,7 @@
         <div class="card pt-4 text-center mb-4">
           <img class="mx-auto d-block" src="{{ specialty.picture.url }}" width="80" height="80" alt="">
           <div class="card-body">
-            <p class="card-text mb-2">{{ vacancy.specialty__title }}</p>
+            <p class="card-text mb-2">{{ specialty.title }}</p>
             <p class="card-text"><a href="{% url 'vacancy_by_specialisation'  specialty.code %}">{{ specialty.vacancies.count }} вакансий</a></p>
           </div>
         </div>

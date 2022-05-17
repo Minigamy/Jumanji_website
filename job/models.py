@@ -56,12 +56,23 @@ class Resume(models.Model):
         ('senior', 'Страший (senior)')
     ]
 
+    SPEC_CHOICES = [
+        ('frontend', 'Frontend'),
+        ('backend', 'Backend'),
+        ('gamedev', 'Gamedev'),
+        ('devops', 'Devops'),
+        ('design', 'Design'),
+        ('products', 'Products'),
+        ('management', 'Management'),
+        ('testing', 'Testing'),
+    ]
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=64)
     surname = models.CharField(max_length=64)
     status = models.CharField(max_length=64, choices=STATUS_CHOICES)
     salary = models.IntegerField()
-    specialty = models.ForeignKey(Specialty, on_delete=models.CASCADE, related_name='resume')
+    specialty = models.CharField(max_length=120, choices=SPEC_CHOICES)
     grade = models.CharField(max_length=64, choices=GRADE_CHOICES)
     education = models.TextField()
     experience = models.TextField()
